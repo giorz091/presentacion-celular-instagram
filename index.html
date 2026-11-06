@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Del celular a Instagram con IA</title>
+<meta name="description" content="Clase práctica del programa MAS: grabas con tu celular, Claude edita con Cinematic 3D Motion y Muse lo publica en Instagram.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=DM+Sans:wght@400;600&display=swap">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#0B0C10;overflow:hidden;font-family:'DM Sans',Arial,sans-serif}
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center center}
+section{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;visibility:hidden;opacity:0;transition:opacity .25s}
+section.on{visibility:visible;opacity:1}
+div:not([style*="display"]){display:flex;flex-direction:column}
+h1{font-size:96px;line-height:1.1} h2{font-size:64px;line-height:1.15} h3{font-size:44px;line-height:1.2}
+p{font-size:32px;line-height:1.4}
+#ui{position:fixed;right:16px;bottom:12px;display:flex;gap:8px;align-items:center;font:14px/1 'DM Sans',Arial,sans-serif;color:#8A8F9C;z-index:9}
+#ui button{background:#1D2029;color:#F3EFE7;border:0;border-radius:8px;width:36px;height:36px;font-size:18px;cursor:pointer}
+#ui button:focus-visible{outline:2px solid #FF6A3D}
+</style>
+</head>
+<body>
+<main id="stage">
+<section id="cover" data-transition="fade" style="background:#111318;color:#F3EFE7;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:space-between">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#FF6A3D;font-weight:600">Programa MAS · Clase práctica</p>
+<div style="display:flex;flex-direction:column;gap:40px">
+<h1 style="font-family:'Syne', Arial, sans-serif;font-size:120px;font-weight:800;line-height:1.0;color:#F3EFE7">Del celular a Instagram con IA</h1>
+<p style="font-size:32px;line-height:1.4;color:#B9BCC6;max-width:1200px">Grabas con tu celular, Claude lo edita con Cinematic 3D Motion y Muse lo publica. Hoy lo hacemos de principio a fin.</p>
+</div>
+<div style="display:flex;gap:24px">
+<p style="font-size:24px;font-weight:600;color:#F3EFE7;background:#1D2029;padding:14px 28px;border-radius:999px">Claude</p>
+<p style="font-size:24px;font-weight:600;color:#F3EFE7;background:#1D2029;padding:14px 28px;border-radius:999px">Cinematic 3D Motion</p>
+<p style="font-size:24px;font-weight:600;color:#F3EFE7;background:#1D2029;padding:14px 28px;border-radius:999px">Muse</p>
+<p style="font-size:24px;font-weight:600;color:#F3EFE7;background:#1D2029;padding:14px 28px;border-radius:999px">Instagram</p>
+</div>
+
+</section>
+<section id="agenda" data-transition="fade" style="background:#111318;color:#F3EFE7;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#FF6A3D;font-weight:600">El plan de hoy</p>
+<h2 style="font-family:'Syne', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;color:#F3EFE7">7 pasos, un reel publicado</h2>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:24px;flex:1">
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:800;color:#FF6A3D">1</p>
+<p style="font-size:32px;font-weight:600;line-height:1.25">Remote Control desde el celular</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:800;color:#FF6A3D">2</p>
+<p style="font-size:32px;font-weight:600;line-height:1.25">Instalar Cinematic 3D Motion</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:800;color:#FF6A3D">3</p>
+<p style="font-size:32px;font-weight:600;line-height:1.25">Grabar tu video</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:800;color:#FF6A3D">4</p>
+<p style="font-size:32px;font-weight:600;line-height:1.25">Editarlo con Claude</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:800;color:#FF6A3D">5</p>
+<p style="font-size:32px;font-weight:600;line-height:1.25">Descargar Muse</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:800;color:#FF6A3D">6</p>
+<p style="font-size:32px;font-weight:600;line-height:1.25">Conectar tu Instagram</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:16px">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:800;color:#FF6A3D">7</p>
+<p style="font-size:32px;font-weight:600;line-height:1.25">Muse describe y publica</p>
+</div>
+<div style="background:#FF6A3D;border-radius:20px;padding:36px;display:flex;flex-direction:column;justify-content:space-between;gap:16px">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#111318;width:48px;height:48px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+<p style="font-size:32px;font-weight:600;line-height:1.25;color:#111318">Resultado: tu reel en Instagram</p>
+</div>
+</div>
+
+</section>
+<section id="remote" data-section="Controlar Claude desde el celular con Remote Control" data-transition="fade" style="background:#111318;color:#F3EFE7;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#FF6A3D;font-weight:600">Paso 1 · Remote Control</p>
+<h2 style="font-family:'Syne', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;color:#F3EFE7">Maneja Claude desde tu celular</h2>
+</div>
+<div style="display:flex;gap:24px;flex:1">
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:20px">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:56px;height:56px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+<h3 style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:700;line-height:1.15">En la compu</h3>
+<p style="font-size:32px;line-height:1.4;color:#B9BCC6">Abre la app de Claude, entra a la pestaña <b>Code</b> y escribe <span style="color:#FF6A3D">/remote-control</span></p>
+</div>
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:20px">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:56px;height:56px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+<h3 style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:700;line-height:1.15">En el celular</h3>
+<p style="font-size:32px;line-height:1.4;color:#B9BCC6">Abre la app de Claude › <b>Code</b> y elige tu sesión. O escanea el código QR que te muestra la compu.</p>
+</div>
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:20px">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:56px;height:56px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+<h3 style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:700;line-height:1.15">Listo</h3>
+<p style="font-size:32px;line-height:1.4;color:#B9BCC6">Lo que escribas en el celular lo hace tu compu. Ves el avance y contestas desde donde estés.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8A8F9C">Necesitas: la compu prendida con Claude abierto · la misma cuenta en los dos · las apps actualizadas</p>
+
+</section>
+<section id="instalar" data-section="Instalar el editor Cinematic 3D Motion" data-transition="fade" style="background:#111318;color:#F3EFE7;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#FF6A3D;font-weight:600">Paso 2 · El editor</p>
+<h2 style="font-family:'Syne', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;color:#F3EFE7">Instala Cinematic 3D Motion</h2>
+</div>
+<div style="display:flex;gap:48px;flex:1">
+<div style="flex:2;display:flex;flex-direction:column;gap:24px">
+<div style="display:flex;gap:28px;align-items:start">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:800;color:#FF6A3D;min-width:min-content">1</p>
+<p style="font-size:32px;line-height:1.4">Guarda el PDF <b>Cinematic 3D Motion - Guía (Mac)</b> en tu compu. No lo borres ni le cambies el nombre: el editor viene adentro.</p>
+</div>
+<div style="display:flex;gap:28px;align-items:start">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:800;color:#FF6A3D;min-width:min-content">2</p>
+<p style="font-size:32px;line-height:1.4">Abre la app de Claude › pestaña <b>Code</b>. Arrastra el PDF al chat y pega el mensaje de la página 3.</p>
+</div>
+<div style="display:flex;gap:28px;align-items:start">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:800;color:#FF6A3D;min-width:min-content">3</p>
+<p style="font-size:32px;line-height:1.4">Cuando aparezca una ventana pidiendo permiso, elige <b>Permitir</b>. Tarda 10–20 minutos; tú no haces nada más.</p>
+</div>
+</div>
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:20px">
+<h3 style="font-family:'Syne', Arial, sans-serif;font-size:32px;font-weight:700;color:#FF6A3D">Antes de empezar</h3>
+<p style="font-size:28px;line-height:1.4;color:#B9BCC6">Mac con chip Apple (M1 o más nueva)</p>
+<p style="font-size:28px;line-height:1.4;color:#B9BCC6">macOS 13 o más reciente</p>
+<p style="font-size:28px;line-height:1.4;color:#B9BCC6">10 GB libres e internet</p>
+<p style="font-size:28px;line-height:1.4;color:#B9BCC6">Plan de Claude que incluya Claude Code</p>
+</div>
+</div>
+
+</section>
+<section id="preguntas" data-transition="fade" style="background:#111318;color:#F3EFE7;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#FF6A3D;font-weight:600">Paso 2 · Ten listas tus respuestas</p>
+<h2 style="font-family:'Syne', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;color:#F3EFE7">Al terminar, Claude te pregunta 6 cosas</h2>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;flex:1">
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600;color:#F3EFE7">Tu nombre</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">Como quieres que aparezca en el video</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600;color:#F3EFE7">Tu @ de Instagram</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">Sale al cierre del reel</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600;color:#F3EFE7">Tu palabra clave</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">La del llamado a la acción: «comenta INFO»</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600;color:#F3EFE7">Nombres propios</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">Marcas y apellidos que dices, para que se escriban bien</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600;color:#F3EFE7">Duración máxima</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">Cuánto quieres que dure tu reel</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600;color:#F3EFE7">Tu música</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">Una carpeta con canciones que tengas derecho a usar (opcional)</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8A8F9C">Al final corre una prueba de 1 minuto y te abre un video de muestra: si lo ves, quedó instalado.</p>
+
+</section>
+<section id="grabar" data-section="Grabar y editar el video" data-transition="fade" style="background:#F3EFE7;color:#16181D;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#C2410C;font-weight:600">Paso 3 · A grabar</p>
+<h2 style="font-family:'Syne', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;color:#16181D">Graba tu video con el celular</h2>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;flex:1">
+<div style="background:#FBF9F4;border:1px solid #E2DCD0;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600">Vertical y a cámara</h3>
+<p style="font-size:24px;line-height:1.4;color:#4A4E57">Tú hablando, mirando al lente, a la altura de tus ojos</p>
+</div>
+<div style="background:#FBF9F4;border:1px solid #E2DCD0;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600">Luz de frente</h3>
+<p style="font-size:24px;line-height:1.4;color:#4A4E57">La ventana enfrente de ti, nunca detrás</p>
+</div>
+<div style="background:#FBF9F4;border:1px solid #E2DCD0;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600">Lugar en silencio</h3>
+<p style="font-size:24px;line-height:1.4;color:#4A4E57">Celular cerca de ti para que la voz se oiga limpia</p>
+</div>
+<div style="background:#FBF9F4;border:1px solid #E2DCD0;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600">¿Te equivocas? Repite</h3>
+<p style="font-size:24px;line-height:1.4;color:#4A4E57">Di la frase otra vez completa: el editor se queda con la última</p>
+</div>
+<div style="background:#FBF9F4;border:1px solid #E2DCD0;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600">Gancho, idea, cierre</h3>
+<p style="font-size:24px;line-height:1.4;color:#4A4E57">Tu mejor frase al inicio, luego tu idea y al final «comenta PALABRA»</p>
+</div>
+<div style="background:#C2410C;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600;color:#FBF9F4">Tema: [tema]</h3>
+<p style="font-size:24px;line-height:1.4;color:#FBF9F4">Duración: [__] segundos · Regresamos en [__] minutos</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#4A4E57">Sirven videos con retomas y tropiezos, y también los de iPhone en HDR: el editor los arregla.</p>
+
+</section>
+<section id="editar" data-transition="fade" style="background:#111318;color:#F3EFE7;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#FF6A3D;font-weight:600">Paso 4 · Editar desde el celular</p>
+<h2 style="font-family:'Syne', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;color:#F3EFE7">Mándalo a editar desde tu celular</h2>
+</div>
+<p style="font-size:32px;font-weight:600;color:#111318;background:#FF6A3D;padding:28px 40px;border-radius:16px">«Edita este video con la plantilla Cinematic 3D Motion»</p>
+<div style="display:flex;gap:16px;flex:1;align-items:stretch">
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:32px;font-weight:800;color:#FF6A3D">1</p>
+<p style="font-size:24px;line-height:1.4">Abre la app de Claude › Code › tu sesión de Remote Control</p>
+</div>
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:32px;font-weight:800;color:#FF6A3D">2</p>
+<p style="font-size:24px;line-height:1.4">Adjunta el video que acabas de grabar</p>
+</div>
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:32px;font-weight:800;color:#FF6A3D">3</p>
+<p style="font-size:24px;line-height:1.4">Escribe la indicación de arriba y envíala</p>
+</div>
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:32px;font-weight:800;color:#FF6A3D">4</p>
+<p style="font-size:24px;line-height:1.4">Claude pregunta música, duración y palabra, y te enseña el plan: di «sí»</p>
+</div>
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:12px">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:32px;font-weight:800;color:#FF6A3D">5</p>
+<p style="font-size:24px;line-height:1.4">Tu compu lo edita y lo revisa cuadro por cuadro</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8A8F9C">Sin cables ni AirDrop: el video sale de tu celular por la app de Claude.</p>
+
+</section>
+<section id="pausa" data-transition="fade" style="background:#FF6A3D;color:#111318;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;justify-content:center;gap:40px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;font-weight:600;color:#111318">Mientras se edita</p>
+<h2 style="font-family:'Syne', Arial, sans-serif;font-size:120px;font-weight:800;line-height:1.0;color:#111318">Suelta la compu. Sigue desde el celular.</h2>
+<p style="font-size:32px;line-height:1.4;color:#111318;max-width:1300px">Con Remote Control ves cómo avanza, apruebas el plan y respondes a Claude desde tu teléfono.</p>
+
+</section>
+<section id="muse" data-section="Muse: descargar, conectar Instagram y publicar" data-transition="fade" style="background:#111318;color:#F3EFE7;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#FF6A3D;font-weight:600">Paso 5 · Muse</p>
+<h2 style="font-family:'Syne', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;color:#F3EFE7">Descarga Muse, el agente de Meta</h2>
+</div>
+<div style="display:flex;gap:24px;flex:1">
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:20px">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:56px;height:56px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+<h3 style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:700;line-height:1.15">Qué es</h3>
+<p style="font-size:32px;line-height:1.4;color:#B9BCC6">Un asistente de IA de Meta que te ayuda a crear, describir y publicar tu contenido.</p>
+</div>
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:20px">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:56px;height:56px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+<h3 style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:700;line-height:1.15">Dónde</h3>
+<p style="font-size:32px;line-height:1.4;color:#B9BCC6">[App Store / Google Play: nombre exacto de la app]. Inicia sesión con tu cuenta de Meta.</p>
+</div>
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:20px">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:56px;height:56px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+<h3 style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:700;line-height:1.15">Ojo</h3>
+<p style="font-size:32px;line-height:1.4;color:#B9BCC6">Está llegando por etapas. Si no te aparece: [plan B].</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8A8F9C">Usa la misma cuenta con la que manejas tu Instagram.</p>
+
+</section>
+<section id="conectar" data-transition="fade" style="background:#111318;color:#F3EFE7;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#FF6A3D;font-weight:600">Paso 6 · Instagram</p>
+<h2 style="font-family:'Syne', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;color:#F3EFE7">Conecta tu cuenta de Instagram</h2>
+</div>
+<div style="display:flex;flex-direction:column;gap:24px;flex:1">
+<div style="display:flex;gap:32px;align-items:center;background:#1D2029;border-radius:20px;padding:32px 40px">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:800;color:#FF6A3D;min-width:min-content">1</p>
+<p style="font-size:32px;line-height:1.4">Abre Muse e inicia sesión con tu cuenta de Meta</p>
+</div>
+<div style="display:flex;gap:32px;align-items:center;background:#1D2029;border-radius:20px;padding:32px 40px">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:800;color:#FF6A3D;min-width:min-content">2</p>
+<p style="font-size:32px;line-height:1.4">Busca la opción para conectar tu Instagram y elige tu cuenta</p>
+</div>
+<div style="display:flex;gap:32px;align-items:center;background:#1D2029;border-radius:20px;padding:32px 40px">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:800;color:#FF6A3D;min-width:min-content">3</p>
+<p style="font-size:32px;line-height:1.4">Acepta los permisos para que pueda publicar por ti</p>
+</div>
+<div style="display:flex;gap:32px;align-items:center;background:#1D2029;border-radius:20px;padding:32px 40px">
+<p style="font-family:'Syne', Arial, sans-serif;font-size:44px;font-weight:800;color:#FF6A3D;min-width:min-content">4</p>
+<p style="font-size:32px;line-height:1.4">Revisa que aparezca tu @ correcto antes de seguir</p>
+</div>
+</div>
+
+</section>
+<section id="publicar" data-transition="fade" style="background:#111318;color:#F3EFE7;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#FF6A3D;font-weight:600">Paso 7 · Publicar</p>
+<h2 style="font-family:'Syne', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;color:#F3EFE7">Muse escribe la descripción y publica</h2>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:24px;flex:1">
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:16px">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:48px;height:48px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+<h3 style="font-size:32px;font-weight:600;line-height:1.25">Pásale tu video</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">Desde la app de Muse en tu celular: el video ya está ahí</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:16px">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:48px;height:48px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+<h3 style="font-size:32px;font-weight:600;line-height:1.25">Pide el copy</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">Con tu ADN de marca y el mensaje que te paso</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:16px">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:48px;height:48px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+<h3 style="font-size:32px;font-weight:600;line-height:1.25">Revisa y aprueba</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">Que diga lo que tú dices, con tu palabra clave bien escrita</p>
+</div>
+<div style="background:#FF6A3D;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:16px">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#111318;width:48px;height:48px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+<h3 style="font-size:32px;font-weight:600;line-height:1.25;color:#111318">Muse publica</h3>
+<p style="font-size:24px;line-height:1.4;color:#111318">Tu reel sale en tu Instagram</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8A8F9C">Regla de oro: nada se publica sin que tú lo apruebes.</p>
+
+</section>
+<section id="adn" data-transition="fade" style="background:#111318;color:#F3EFE7;font-family:'DM Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#FF6A3D;font-weight:600">Paso 7 · Tu ADN de marca</p>
+<h2 style="font-family:'Syne', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;color:#F3EFE7">Dale a Muse tu ADN de marca</h2>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;flex:1">
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600;color:#F3EFE7">Quién eres</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">A qué te dedicas y a quién ayudas</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600;color:#F3EFE7">Cómo hablas</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">Tu tono, palabras que sí usas y las que nunca</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600;color:#F3EFE7">Tus temas</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">De qué hablas siempre y qué evitas</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600;color:#F3EFE7">Tu llamado a la acción</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">Tu palabra clave y lo que ofreces a cambio</p>
+</div>
+<div style="background:#1D2029;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600;color:#F3EFE7">Ejemplos</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">2 o 3 descripciones tuyas que te gusten</p>
+</div>
+<div style="background:#FF6A3D;border-radius:20px;padding:36px;display:flex;flex-direction:column;gap:12px">
+<h3 style="font-size:32px;font-weight:600;color:#111318">Escríbelo una vez</h3>
+<p style="font-size:24px;line-height:1.4;color:#111318">Guárdalo en una nota y pégalo en Muse antes de pedir tu copy</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#8A8F9C">Con tu ADN, la descripción suena a ti y no a un robot.</p>
+
+</section>
+<section id="prompt" data-transition="fade" style="background:#F3EFE7;color:#16181D;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#C2410C;font-weight:600">Paso 7 · Copia y pega</p>
+<h2 style="font-family:'Syne', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;color:#16181D">El mensaje para Muse</h2>
+</div>
+<div style="flex:1;background:#FBF9F4;border:1px solid #E2DCD0;border-left:8px solid #C2410C;border-radius:20px;padding:56px;display:flex;flex-direction:column;justify-content:center">
+<p style="font-size:44px;line-height:1.35;color:#16181D">«Edita este video con Cinematic, genera una descripción que vaya de acuerdo al video y a <span style="color:#C2410C">mi ADN de marca</span>, y dame la propuesta del copy para aprobarla.»</p>
+</div>
+
+</section>
+<section id="aprobar" data-transition="fade" style="background:#111318;color:#F3EFE7;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:56px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#FF6A3D;font-weight:600">Paso 7 · Tú decides</p>
+<h2 style="font-family:'Syne', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;color:#F3EFE7">Revisa y aprueba</h2>
+</div>
+<div style="display:flex;gap:48px;flex:1">
+<div style="flex:3;background:#1D2029;border-radius:20px;padding:48px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;gap:20px;align-items:center">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:40px;height:40px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+<p style="font-size:32px;line-height:1.3">¿Suena a ti?</p>
+</div>
+<div style="display:flex;gap:20px;align-items:center">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:40px;height:40px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+<p style="font-size:32px;line-height:1.3">¿Dice lo mismo que dices en el video?</p>
+</div>
+<div style="display:flex;gap:20px;align-items:center">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:40px;height:40px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+<p style="font-size:32px;line-height:1.3">¿Tu palabra clave está bien escrita?</p>
+</div>
+<div style="display:flex;gap:20px;align-items:center">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:40px;height:40px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+<p style="font-size:32px;line-height:1.3">¿No inventó datos ni cifras?</p>
+</div>
+</div>
+<div style="flex:2;display:flex;flex-direction:column;gap:24px">
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:16px">
+<h3 style="font-size:32px;font-weight:600;color:#F3EFE7">¿Algo no te gusta?</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">Pídele cambios normal: «más corta», «sin emojis», «más formal».</p>
+</div>
+<div style="flex:1;background:#FF6A3D;border-radius:20px;padding:40px;display:flex;flex-direction:column;gap:16px">
+<h3 style="font-size:32px;font-weight:600;color:#111318">¿Todo bien?</h3>
+<p style="font-size:24px;line-height:1.4;color:#111318">Apruébalo y Muse lo publica en tu Instagram.</p>
+</div>
+</div>
+</div>
+
+</section>
+<section id="flujo" data-section="Repaso del flujo completo y cierre" data-transition="fade" style="background:#111318;color:#F3EFE7;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:column;gap:80px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#FF6A3D;font-weight:600">El flujo completo</p>
+<h2 style="font-family:'Syne', Arial, sans-serif;font-size:72px;font-weight:700;line-height:1.1;color:#F3EFE7">De tu celular a Instagram</h2>
+</div>
+<div style="display:flex;gap:24px;align-items:center">
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:40px 32px;display:flex;flex-direction:column;gap:20px">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:56px;height:56px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+<h3 style="font-size:32px;font-weight:600;line-height:1.25">Celular</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">Grabas y se lo mandas a Claude</p>
+</div>
+<div aria-hidden="true" style="background:#FF6A3D;width:64px;height:32px;flex:none;clip-path:polygon(0 30%,60% 30%,60% 0,100% 50%,60% 100%,60% 70%,0 70%)"></div>
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:40px 32px;display:flex;flex-direction:column;gap:20px">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:56px;height:56px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+<h3 style="font-size:32px;font-weight:600;line-height:1.25">Claude</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">Edita con Cinematic 3D Motion</p>
+</div>
+<div aria-hidden="true" style="background:#FF6A3D;width:64px;height:32px;flex:none;clip-path:polygon(0 30%,60% 30%,60% 0,100% 50%,60% 100%,60% 70%,0 70%)"></div>
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:40px 32px;display:flex;flex-direction:column;gap:20px">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:56px;height:56px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+<h3 style="font-size:32px;font-weight:600;line-height:1.25">Muse</h3>
+<p style="font-size:24px;line-height:1.4;color:#B9BCC6">Escribe el copy con tu ADN</p>
+</div>
+<div aria-hidden="true" style="background:#FF6A3D;width:64px;height:32px;flex:none;clip-path:polygon(0 30%,60% 30%,60% 0,100% 50%,60% 100%,60% 70%,0 70%)"></div>
+<div style="flex:1;background:#FF6A3D;border-radius:20px;padding:40px 32px;display:flex;flex-direction:column;gap:20px">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#111318;width:56px;height:56px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+<h3 style="font-size:32px;font-weight:600;line-height:1.25;color:#111318">Instagram</h3>
+<p style="font-size:24px;line-height:1.4;color:#111318">Tu reel publicado</p>
+</div>
+</div>
+<p style="font-size:32px;line-height:1.4;color:#B9BCC6">En cada paso <span style="color:#FF6A3D">tú apruebas</span>: el plan de edición, el video final y la descripción.</p>
+
+</section>
+<section id="cierre" data-transition="fade" style="background:#111318;color:#F3EFE7;font-family:'DM Sans', Arial, sans-serif;padding:128px;display:flex;flex-direction:row;gap:96px;align-items:center">
+<div style="flex:1;display:flex;flex-direction:column;gap:32px">
+<p style="font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#FF6A3D;font-weight:600">Antes de irte</p>
+<h2 style="font-family:'Syne', Arial, sans-serif;font-size:120px;font-weight:800;line-height:1.0;color:#F3EFE7">Tu primer reel, publicado.</h2>
+<p style="font-size:32px;line-height:1.4;color:#B9BCC6">Comparte el link en el grupo y comentamos los de todos.</p>
+</div>
+<div style="flex:1;background:#1D2029;border-radius:20px;padding:48px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;gap:20px;align-items:center">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:40px;height:40px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+<p style="font-size:32px;line-height:1.3">Remote Control funcionando</p>
+</div>
+<div style="display:flex;gap:20px;align-items:center">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:40px;height:40px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+<p style="font-size:32px;line-height:1.3">Editor instalado y probado</p>
+</div>
+<div style="display:flex;gap:20px;align-items:center">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:40px;height:40px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+<p style="font-size:32px;line-height:1.3">Video grabado y editado</p>
+</div>
+<div style="display:flex;gap:20px;align-items:center">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:40px;height:40px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+<p style="font-size:32px;line-height:1.3">Muse conectado a tu Instagram</p>
+</div>
+<div style="display:flex;gap:20px;align-items:center">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:40px;height:40px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+<p style="font-size:32px;line-height:1.3">Tu ADN de marca guardado</p>
+</div>
+<div style="display:flex;gap:20px;align-items:center">
+<svg viewBox="0 0 24 24" aria-hidden="true" style="color:#FF6A3D;width:40px;height:40px;flex:none" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+<p style="font-size:32px;line-height:1.3">Reel publicado</p>
+</div>
+</div>
+
+</section>
+</main>
+<nav id="ui" aria-label="Navegación">
+<button id="prev" aria-label="Anterior">‹</button><span id="count"></span><button id="next" aria-label="Siguiente">›</button>
+</nav>
+<script>
+const s=[...document.querySelectorAll('#stage>section')],st=document.getElementById('stage'),c=document.getElementById('count');
+let i=Math.min(Math.max((parseInt(location.hash.slice(1))||1)-1,0),s.length-1);
+function fit(){const k=Math.min(innerWidth/1920,innerHeight/1080);st.style.transform=`translate(-50%,-50%) scale(${k})`;}
+function go(n){i=Math.min(Math.max(n,0),s.length-1);s.forEach((e,j)=>e.classList.toggle('on',j===i));c.textContent=`${i+1} / ${s.length}`;history.replaceState(null,'','#'+(i+1));}
+addEventListener('resize',fit);
+addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();go(i+1)}if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(i-1)}if(e.key==='Home')go(0);if(e.key==='End')go(s.length-1);});
+document.getElementById('prev').onclick=()=>go(i-1);document.getElementById('next').onclick=()=>go(i+1);
+st.addEventListener('click',e=>go(e.clientX<innerWidth/3?i-1:i+1));
+let x0=null;addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+addEventListener('touchend',e=>{if(x0===null)return;const d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>40)go(d<0?i+1:i-1);x0=null;});
+addEventListener('hashchange',()=>{const n=(parseInt(location.hash.slice(1))||1)-1;if(n!==i)go(n);});
+fit();go(i);
+</script>
+</body>
+</html>
